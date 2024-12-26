@@ -154,7 +154,7 @@ def generate_html(content):
             body {{
                 font-family: Arial, sans-serif;
                 font-size: 18px;  /* Set font size to 18px for larger text */
-                line-height: 1.5;
+                line-height: 1;
                 margin: 20px;
             }}
             h2 {{
