@@ -8,10 +8,13 @@ from dotenv import load_dotenv
 import pdfkit
 import markdown2
 
+Gapi_key = st.secrets["GOOGLE_API_KEY"]
+print(api_key)
+
+
 
 st.set_page_config(layout="wide")
-GOOGLE_API_KEY = Your_API_KEY
-genai.configure(api_key=GOOGLE_API_KEY)
+genai.configure(api_key=Gapi_key)
 
 
 # Extracts video id from youtube URL
