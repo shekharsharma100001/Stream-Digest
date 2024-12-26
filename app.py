@@ -4,7 +4,6 @@ from youtube_transcript_api import YouTubeTranscriptApi
 import os
 import re
 from io import BytesIO
-from weasyprint import HTML
 from dotenv import load_dotenv
 import markdown2
 from reportlab.lib.pagesizes import letter
