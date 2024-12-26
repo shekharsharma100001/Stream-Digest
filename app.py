@@ -5,6 +5,7 @@ import os
 import re
 from io import BytesIO
 from dotenv import load_dotenv
+from xhtml2pdf import pisa
 import markdown2
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
