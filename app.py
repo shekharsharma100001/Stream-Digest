@@ -10,7 +10,7 @@ import markdown2
 
 
 st.set_page_config(layout="wide")
-GOOGLE_API_KEY = "AIzaSyDMlGWuPeAhmZjmTFXSi_peXU6Fvcd8Aa8"
+GOOGLE_API_KEY = Your_API_KEY
 genai.configure(api_key=GOOGLE_API_KEY)
 
 
