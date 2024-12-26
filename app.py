@@ -108,7 +108,7 @@ if youtube_link:
         st.error(str(e))
     else:
         with thumbnail.container(border = True):
-            st.image(f"http://img.youtube.com/vi/{video_id}/0.jpg", use_column_width=True)
+            st.image(f"http://img.youtube.com/vi/{video_id}/0.jpg", use_container_width=True)
         with desc.container(border = True):
             st.header(":violet[Word Limit] ⏩")
             with st.container(border = True):
