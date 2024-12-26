@@ -14,12 +14,8 @@ from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
 
 Gapi_key = st.secrets["GOOGLE_API_KEY"]
-
-
-
 st.set_page_config(layout="wide")
 genai.configure(api_key=Gapi_key)
-
 
 # Extracts video id from YouTube URL
 def extract_video_id(youtube_url):
@@ -111,16 +107,18 @@ if youtube_link:
     except ValueError as e:
         st.error(str(e))
     else:
-        with thumbnail:
+        with thumbnail.container(border = True):
             st.image(f"http://img.youtube.com/vi/{video_id}/0.jpg", use_column_width=True)
-        with desc:
+        with desc.container(border = True):
             st.header(":violet[Word Limit] ⏩")
-            words = st.slider('word limit', 50, 500, 250, 10, label_visibility='hidden')
+            with st.container(border = True):
+                words = st.slider('word limit', 50, 500, 250, 10, label_visibility='hidden')
             prompt = f"""You are a YouTube video summarizer. You will be taking the transcript text 
         and summarizing the entire video, providing the important summary in points within {words} words.
         Please provide the summary of the given YouTube caption here: """
-            st.header(":violet[Enter Prompt(Optional)]")
-            prompt = st.text_input("prompt", label_visibility='hidden', help='Enter the prompt to clarify in which format summary is to be generated.', placeholder="Provide specific instructions for summary format.")
+            with st.container(border = True):
+                st.header(":violet[Enter Prompt(Optional)]")
+                prompt = st.text_input("prompt", label_visibility='hidden', help='Enter the prompt to clarify in which format summary is to be generated.', placeholder="Provide specific instructions for summary format.")
         st.write(' ')
         st.markdown('<h7><h7>', unsafe_allow_html=True)
         btn, spin = st.columns(2)
@@ -139,8 +137,6 @@ if youtube_link:
 if 'summary' in st.session_state and st.session_state['summary'] == False:
     st.info("🥲 Sorry, Summary for the video cannot be generated. Try with another video.")
 
-# Global Styling for HTML (optional, since ReportLab handles styling differently)
-# Removed as ReportLab manages styles internally
 
 # Convert Markdown to HTML using markdown2 with extras
 def markdown_to_html(content):
@@ -148,11 +144,25 @@ def markdown_to_html(content):
     html = markdown2.markdown(content, extras=extras)
     return html
 
+# Generate HTML for the document
+def generate_html(content):
+    formatted_content = markdown_to_html(content)
+    html = f"""
+    <html>
+    <head></head>
+    <body>
+        <h2>Detailed Notes:</h2>
+        {formatted_content}
+    </body>
+    </html>
+    """
+    return html
+
 # Generate PDF using ReportLab
 def generate_pdf(content):
     try:
         # Convert Streamlit-rendered Markdown to HTML
-        html_content = markdown_to_html(content)
+        html_content = generate_html(content)
 
         # Create PDF buffer
         pdf_buffer = BytesIO()
@@ -173,7 +183,7 @@ def generate_pdf(content):
 if "summary" in st.session_state and st.session_state["summary"]:
     raw_summary = st.session_state["summary"]
     st.markdown("## Detailed Notes:")
-    box = st.container()
+    box = st.container(border = True)
     with box:
         st.markdown(raw_summary, unsafe_allow_html=True)
 
