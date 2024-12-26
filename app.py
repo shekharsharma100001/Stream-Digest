@@ -96,6 +96,7 @@ st.info("""
 1. Paste the URL of Youtube Video.
 2. You can use your own prompt to generate your summary according to requirements.
 3. Select the word limits of your Summary by moving the slider.
+4. There is a possibility that summary will not be generated at a single click due to traffic on site. So click it mutiple times until summary gets generated.
 """)
 st.header("🔗 :green[Paste YouTube URL]")
 youtube_link = st.text_input('yt link', help="Copy Your YouTube URL and paste it in the Text Box", label_visibility="hidden")
@@ -153,18 +154,17 @@ def generate_html(content):
         <style>
             body {{
                 font-family: Arial, sans-serif;
-                font-size: 18px;  /* Set font size to 18px for larger text */
-                line-height: 1;
-                margin: 20px;
+                line-height: 1.6;
+                color: #333;
             }}
             h2 {{
-                font-size: 24px;  /* Larger font size for headings */
-                color: #2a3d66;
+                color: #2c3e50;
+                font-weight: bold;
             }}
         </style>
     </head>
     <body>
-        <h2>Detailed Notes:</h2>
+        <h2>Video Summary:</h2>
         {formatted_content}
     </body>
     </html>
