@@ -9,7 +9,6 @@ import pdfkit
 import markdown2
 
 Gapi_key = st.secrets["GOOGLE_API_KEY"]
-print(api_key)
 
 
 
