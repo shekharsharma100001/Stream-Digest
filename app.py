@@ -4,6 +4,7 @@ from youtube_transcript_api import YouTubeTranscriptApi
 import os
 import re
 from io import BytesIO
+from weasyprint import HTML
 from dotenv import load_dotenv
 import markdown2
 from reportlab.lib.pagesizes import letter
@@ -150,23 +151,12 @@ def markdown_to_html(content):
 # Generate PDF using ReportLab
 def generate_pdf(content):
     try:
+        # Convert Streamlit-rendered Markdown to HTML
+        html_content = markdown_to_html(content)
         pdf_buffer = BytesIO()
-        doc = SimpleDocTemplate(pdf_buffer, pagesize=letter)
-        styles = getSampleStyleSheet()
-        flowables = []
 
-        # Title
-        flowables.append(Paragraph("Detailed Notes:", styles['Heading2']))
-        flowables.append(Spacer(1, 12))
-
-        # Convert Markdown to Paragraphs
-        for line in content.split('\n'):
-            if line.strip() == '':
-                continue
-            flowables.append(Paragraph(line, styles['Normal']))
-            flowables.append(Spacer(1, 12))
-
-        doc.build(flowables)
+        # Create PDF using WeasyPrint
+        HTML(string=html_content).write_pdf(pdf_buffer)
         pdf_buffer.seek(0)
         return pdf_buffer
     except Exception as e:
