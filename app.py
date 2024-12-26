@@ -153,11 +153,17 @@ def generate_pdf(content):
     try:
         # Convert Streamlit-rendered Markdown to HTML
         html_content = markdown_to_html(content)
+
+        # Create PDF buffer
         pdf_buffer = BytesIO()
 
-        # Create PDF using WeasyPrint
-        HTML(string=html_content).write_pdf(pdf_buffer)
+        # Convert HTML to PDF
+        pisa_status = pisa.CreatePDF(html_content, dest=pdf_buffer)
         pdf_buffer.seek(0)
+
+        if pisa_status.err:
+            st.error("PDF generation failed.")
+            return None
         return pdf_buffer
     except Exception as e:
         st.error(f"PDF generation failed: {e}")
