@@ -75,7 +75,7 @@ def get_base64_file(file_path):
         return base64.b64encode(f.read()).decode()
 
 # Convert the GIF to Base64
-gif_data = get_base64_file("images\S.gif")
+gif_data = get_base64_file("images\\S.gif")
 
 # Embed the GIF in HTML
 st.markdown(
