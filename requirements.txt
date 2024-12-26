@@ -1,7 +1,5 @@
-streamlit
 google-generativeai
 youtube-transcript-api
-python-dotenv
-pdfkit
 markdown2
-weasyprint
+reportlab
+streamlit
