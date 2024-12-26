@@ -3,3 +3,4 @@ youtube-transcript-api
 markdown2
 reportlab
 streamlit
+python-dotenv
