@@ -119,20 +119,20 @@ if youtube_link:
             with st.container(border = True):
                 st.header(":violet[Enter Prompt(Optional)]")
                 prompt = st.text_input("prompt", label_visibility='hidden', help='Enter the prompt to clarify in which format summary is to be generated.', placeholder="Provide specific instructions for summary format.")
-        st.write(' ')
-        st.markdown('<h7><h7>', unsafe_allow_html=True)
-        btn, spin = st.columns(2)
+            st.write(' ')
+            st.markdown('<h7><h7>', unsafe_allow_html=True)
+            btn, spin = st.columns(2)
 
-        if btn.button("Generate Summary", use_container_width=True):
-            with spin:
-                with st.spinner("Generating summary..."):
-                    transcript_text = get_english_transcript(video_id)
-                    if transcript_text:
-                        summary = generate_gemini_content(transcript_text, prompt)
-                        st.session_state['summary'] = summary
-                        st.success("Summary generated successfully!")
-                    else:
-                        st.error("Could not fetch transcript for this video.")
+            if btn.button("Generate Summary", use_container_width=True):
+                with spin:
+                    with st.spinner("Generating summary..."):
+                        transcript_text = get_english_transcript(video_id)
+                        if transcript_text:
+                            summary = generate_gemini_content(transcript_text, prompt)
+                            st.session_state['summary'] = summary
+                            st.success("Summary generated successfully!")
+                        else:
+                            st.error("Could not fetch transcript for this video.")
 
 if 'summary' in st.session_state and st.session_state['summary'] == False:
     st.info("🥲 Sorry, Summary for the video cannot be generated. Try with another video.")
@@ -149,7 +149,20 @@ def generate_html(content):
     formatted_content = markdown_to_html(content)
     html = f"""
     <html>
-    <head></head>
+    <head>
+        <style>
+            body {{
+                font-family: Arial, sans-serif;
+                font-size: 18px;  /* Set font size to 18px for larger text */
+                line-height: 1.5;
+                margin: 20px;
+            }}
+            h2 {{
+                font-size: 24px;  /* Larger font size for headings */
+                color: #2a3d66;
+            }}
+        </style>
+    </head>
     <body>
         <h2>Detailed Notes:</h2>
         {formatted_content}
